@@ -1,0 +1,67 @@
+# Python虚拟环境
+venv/
+solar-venv/
+env/
+.env/
+.venv/
+
+# Python编译文件
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 分发/打包
+dist/
+build/
+*.egg-info/
+*.egg
+
+# 单元测试/覆盖率报告
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IDE配置
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# 项目特定文件
+*.log
+logs/
+data/test_missing/
+results/*.html
+models/*.pth
+models/*.pkl
+models/*.joblib
+
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~
+
+# 环境配置
+.env
+.env.local
+.env.*.local
+
+# 其他
+.cursor/
+node_modules/ 

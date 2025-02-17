@@ -1,0 +1,138 @@
+{
+    "metrics": {
+        "test_loss": 515.0411580403646,
+        "mae": 73.5103530883789,
+        "rmse": 98.13972473144531,
+        "r2": 0.9997008450736757,
+        "mape": 1936.0557556152344,
+        "day_mae": 142.26573181152344,
+        "day_rmse": 153.78111267089844,
+        "day_mape": 1.7250973731279373,
+        "max_actual": 17473.724609375,
+        "max_predicted": 17598.91796875,
+        "mean_actual": 3596.58251953125,
+        "mean_predicted": 3654.488037109375
+    },
+    "timestamp": "2025-02-17 14:46:00",
+    "model_config": {
+        "filternet": {
+            "input_dim": 29,
+            "hidden_dim": 128,
+            "output_dim": 1,
+            "num_layers": 3,
+            "dropout": 0.2
+        },
+        "bilstm": {
+            "input_dim": 29,
+            "hidden_dim": 128,
+            "num_layers": 2,
+            "dropout": 0.2
+        },
+        "xgboost": {
+            "max_depth": 6,
+            "learning_rate": 0.05,
+            "n_estimators": 200,
+            "objective": "reg:squarederror",
+            "subsample": 0.8,
+            "colsample_bytree": 0.8,
+            "tree_method": "hist"
+        }
+    },
+    "train_config": {
+        "batch_size": 64,
+        "learning_rate": {
+            "stage1": {
+                "initial": 0.0001,
+                "min": 1e-06,
+                "factor": 0.5,
+                "patience": 5
+            },
+            "stage2": {
+                "initial": 5e-05,
+                "min": 1e-06,
+                "factor": 0.5,
+                "patience": 5
+            },
+            "stage3": {
+                "initial": 1e-05,
+                "min": 1e-07,
+                "factor": 0.5,
+                "patience": 5
+            }
+        },
+        "stage1_epochs": 50,
+        "stage2_epochs": 30,
+        "stage3_start_epoch": 80,
+        "max_epochs": 150,
+        "early_stopping_patience": {
+            "stage1": 10,
+            "stage2": 8,
+            "stage3": 15
+        },
+        "initial_weights": {
+            "filternet": 0.4,
+            "bilstm": 0.4,
+            "xgboost": 0.2
+        },
+        "l1_weight": 0.001,
+        "weight_update": {
+            "smoothing_factor": 0.8,
+            "min_weight": 0.1
+        },
+        "model_save_path": "/root/cursor/solar-predit/models",
+        "gradient_clip": 1.0
+    },
+    "feature_config": {
+        "time_features": [
+            "hour",
+            "day_of_week",
+            "month",
+            "day_of_year"
+        ],
+        "weather_features": [
+            "temperature",
+            "total_irradiance",
+            "wind_speed",
+            "direct_irradiance",
+            "diffuse_irradiance",
+            "relative_humidity",
+            "pressure",
+            "cloud_type"
+        ],
+        "solar_features": [
+            "solar_elevation",
+            "dni_ratio",
+            "dew_point",
+            "air_mass",
+            "clearness_index",
+            "cell_temperature"
+        ],
+        "derived_features": {
+            "periodic": [
+                "hour_sin",
+                "hour_cos",
+                "day_of_week_sin",
+                "day_of_week_cos",
+                "month_sin",
+                "month_cos",
+                "day_of_year_sin",
+                "day_of_year_cos"
+            ],
+            "interactions": [
+                "irradiance_temp",
+                "clearness_elevation",
+                "wind_chill"
+            ]
+        },
+        "feature_scaling": {
+            "method": "robust",
+            "params": {}
+        }
+    },
+    "power_info": {
+        "system_power": 18559.585100000004,
+        "train_max": 18559.585100000004,
+        "train_95th": 15891.18877,
+        "daytime_max": 18559.585100000004
+    }
+}
